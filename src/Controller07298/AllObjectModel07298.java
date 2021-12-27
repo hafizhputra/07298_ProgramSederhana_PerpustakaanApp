@@ -1,17 +1,16 @@
 package Controller07298;
-
 import Model07298.AdminModelInterface07298;
-import Model07298.AdminModelInterfaceImp07298;
+import Model07298.AdminModelInterfaceimpl07298;
 import Model07298.AnggotaModelInterface07298;
-import Model07298.AnggotaModelInterfaceImp;
-import Model07298.BukuModelEntity07298;
+import Model07298.AnggotaModelInterfaceimpl07298;
 import Model07298.BukuModelInterface07298;
-import Model07298.PeminjamanModelInterface;
-import Model07298.PeminjamanModelInterfaceImp;
+import Model07298.BukuModelInterfaceimpl07298;
+import Model07298.PeminjamanModelInterface07298;
+import Model07298.PeminjamanModelInterfaceimpl07298;
 
 public class AllObjectModel07298 {
-    public static AdminModelInterface07298 adminModel = new AdminModelInterfaceImp07298();
-    public static AnggotaModelInterface07298 anggotaModel = new AnggotaModelInterfaceImp();
-    public static BukuModelInterface07298 bukuModel = new BukuModelEntity07298();
-    public static PeminjamanModelInterface peminjamanModel = new PeminjamanModelInterfaceImp();
+    public static AdminModelInterface07298 adminModel = new AdminModelInterfaceimpl07298();
+    public static AnggotaModelInterface07298 anggotaModel = new AnggotaModelInterfaceimpl07298();
+    public static BukuModelInterface07298 bukuModel = new BukuModelInterfaceimpl07298();
+    public static PeminjamanModelInterface07298 peminjamanModel = new PeminjamanModelInterfaceimpl07298();
 }

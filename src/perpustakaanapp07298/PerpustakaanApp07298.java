@@ -1,26 +1,27 @@
+package perpustakaanapp07298;
 import java.util.Scanner;
 
 import Controller07298.AdminControllerInterface07298;
-import Controller07298.AdminControllerInterfaceImp;
-import Controller07298.AnggotaControllerImp07298;
+import Controller07298.AdminControllerInterfaceimpl07298;
 import Controller07298.AnggotaControllerInterface07298;
-import Controller07298.BukuController07298;
+import Controller07298.AnggotaControllerInterfaceimpl07298;
 import Controller07298.BukuControllerInterface07298;
-import Controller07298.PeminjamanControllerImp;
-import Controller07298.PeminjamanControllerInterface;
+import Controller07298.BukuControllerInterfaceimpl07298;
+import Controller07298.PeminjamanControllerInterface07298;
+import Controller07298.PeminjamanControllerInterfaceimpl07298;
 import Entity07298.AnggotaEntity07298;
 import Entity07298.BukuEntity07298;
 
 public class PerpustakaanApp07298 {
-    public static Scanner input = new Scanner(System.in);
-    public static AdminControllerInterface07298 adminCon = new AdminControllerInterfaceImp();
-    public static AnggotaControllerInterface07298 anggotaCon = new AnggotaControllerImp07298();
-    public static BukuControllerInterface07298 bukuCon = new BukuController07298();
-    public static PeminjamanControllerInterface peminjamanCon = new PeminjamanControllerImp();
+    public static Scanner input = new Scanner(System.in); 
+    public static AdminControllerInterface07298 adminController = new AdminControllerInterfaceimpl07298();
+    public static AnggotaControllerInterface07298 anggotaController = new AnggotaControllerInterfaceimpl07298();
+    public static BukuControllerInterface07298 bukuController = new BukuControllerInterfaceimpl07298();
+    public static PeminjamanControllerInterface07298 peminjamanController = new PeminjamanControllerInterfaceimpl07298();
     public static String nama, password, noTelp, alamat;
     public static String username, pass;
     
-    public static void main(String[] args) {
+    public static void main (String[] args){
         int pilih;
         do{
             System.out.println("SELAMAT DATANG");
@@ -52,7 +53,7 @@ public class PerpustakaanApp07298 {
         noTelp = input.next();
         System.out.print("Alamat    : ");
         alamat = input.next();
-        anggotaCon.inserAnggota(nama, password, noTelp, alamat);
+        anggotaController.insertAnggota07298(nama, password, noTelp, alamat);
     }
     
     public static void login(){
@@ -75,11 +76,11 @@ public class PerpustakaanApp07298 {
     }
     
     public static void loginAdmin(){
-        System.out.print("Username : ");
+       System.out.print("Username : ");
         nama = input.next();
         System.out.print("Password : ");
         password = input.next();
-        if(adminCon.login(nama, password)){
+        if(adminController.login07298(nama, password)){
             menuAdmin();
         }else{
             System.out.println("Username atau Password salah");
@@ -91,15 +92,13 @@ public class PerpustakaanApp07298 {
         nama = input.next();
         System.out.print("Password : ");
         password = input.next();
-        if(anggotaCon.login(nama, password) != 0){
-            int id = anggotaCon.login(nama, password);
+        if(anggotaController.login07298(nama, password) != 0){
+            int id = anggotaController.login07298(nama, password);
             menuAnggota(id);
         }else{
             System.out.println("Username atau Password salah");
         }
-        
     }
-    
     public static void menuAdmin(){
         int pilih;
         do{
@@ -123,7 +122,7 @@ public class PerpustakaanApp07298 {
                     hapusAnggota();
                     break;
                 case 3:
-                    resetPassAnggota();
+                    resetPasswordAnggota();
                     break;
                 case 4:
                     daftarBuku();
@@ -138,7 +137,7 @@ public class PerpustakaanApp07298 {
                     ubahBuku();
                     break;
                 case 8:
-                    lihatDaftarPeminjam();
+                    lihatDaftarPeminjaman();
                     break;
                 case 9:
                     verifikasiPengembalian();
@@ -148,14 +147,14 @@ public class PerpustakaanApp07298 {
     }
     
     public static void daftarAnggota(){
-        int size = anggotaCon.showAllData().size();
+        int size = anggotaController.showAllData07298().size();
         System.out.println("Data Daftar Anggota");
         for (int i = 0; i < size; i++){
-            System.out.println("" +anggotaCon.showAllData().get(i).getId()+ ". "
-            + " " +anggotaCon.showAllData().get(i).getNama()
-            + " " +anggotaCon.showAllData().get(i).getPassword()
-            + " " +anggotaCon.showAllData().get(i).getNoTelp()
-            + " " +anggotaCon.showAllData().get(i).getAlamat()
+            System.out.println("" +anggotaController.showAllData07298().get(i).getId()+ ". "
+            + " " +anggotaController.showAllData07298().get(i).getNama()
+            + " " +anggotaController.showAllData07298().get(i).getPassword()
+            + " " +anggotaController.showAllData07298().get(i).getNoTelp()
+            + " " +anggotaController.showAllData07298().get(i).getAlamat()
             );
         }
     }
@@ -164,24 +163,24 @@ public class PerpustakaanApp07298 {
         daftarAnggota();
         System.out.print("Masukkan id yang akan di HAPUS : ");
         int id = input.nextInt();
-        adminCon.hapusAnggota(id);
+        adminController.hapusAnggota07298(id);
     }
     
-    public static void resetPassAnggota(){
+    public static void resetPasswordAnggota(){
         daftarAnggota();
         System.out.print("Id yang akan di RESET  : ");
         int id = input.nextInt();
-        adminCon.resetPassAnggota(id);
+        adminController.resetPassAnggota07298(id);
     }
     
     public static void daftarBuku(){
-        int size = bukuCon.showAllData().size();
+        int size = bukuController.showAllData07298().size();
         for(int i = 0; i < size; i++){
-            System.out.println((i+1)+ ". " +bukuCon.showAllData().get(i).getIsbn()+ " "
-            + bukuCon.showAllData().get(i).getJudul()+ " "
-            + bukuCon.showAllData().get(i).getPenerbit()+ " "
-            + bukuCon.showAllData().get(i).getTerbit()+ " "
-            + bukuCon.showAllData().get(i).getHalaman()+ " "
+            System.out.println((i+1)+ ". " +bukuController.showAllData07298().get(i).getIsbn()+ " "
+            + bukuController.showAllData07298().get(i).getJudul()+ " "
+            + bukuController.showAllData07298().get(i).getPenerbit()+ " "
+            + bukuController.showAllData07298().get(i).getTerbit()+ " "
+            + bukuController.showAllData07298().get(i).getHalaman()+ " "
             );
         }
     }
@@ -199,15 +198,15 @@ public class PerpustakaanApp07298 {
         int halaman = input.nextInt();
         System.out.print("Tahun Terbit Buku    : ");
         int tgl = input.nextInt();
-        bukuCon.insertBuku(isbn, judul, penerbit, halaman, tgl);
-    }
+        bukuController.insertBuku07298(isbn, judul, penerbit, halaman, tgl);
+    } 
     
     public static void hapusBuku(){
         daftarBuku();
         System.out.print("Kode ISBN : ");
         String isbn = input.next();
-        bukuCon.deleteBuku(isbn);
-    }
+        bukuController.deleteBuku07298(isbn);
+    } 
     
     public static void ubahBuku(){
         int pilih;
@@ -225,7 +224,7 @@ public class PerpustakaanApp07298 {
                     judul += input.nextLine();
                     System.out.print("Isbn Buku : ");
                     String isbn = input.next();
-                    bukuCon.updateBuku(1, isbn, judul);
+                    bukuController.updateBuku07298(1, judul, isbn);
                     break;
                 case 2:
                     daftarBuku();
@@ -234,31 +233,31 @@ public class PerpustakaanApp07298 {
                     penerbit += input.nextLine();
                     System.out.print("Isbn Buku : ");
                     isbn = input.next();
-                    bukuCon.updateBuku(2, isbn, penerbit);
+                    bukuController.updateBuku07298(2, penerbit, isbn);
                     break;
             }
         }while (pilih < 3);
-    }
+    } 
     
-public static void lihatDaftarPeminjam(){
-        int size = peminjamanCon.showAllData().size();
+    public static void lihatDaftarPeminjaman(){
+        int size = peminjamanController.showAllData07298().size();
         for (int i =0; i < size ; i++){
-           String status = !peminjamanCon.showAllData().get(i).isStatusPeminjaman() ?"Masih dipinjam ":"Telah Kembali ";
-           System.out.println((i+1)+". "+peminjamanCon.showAllData().get(i).getIdPeminjaman()+" "+
-                peminjamanCon.showAllData().get(i).getBuku().getIsbn()+" "+
-                peminjamanCon.showAllData().get(i).getBuku().getJudul()+" "+
-                peminjamanCon.showAllData().get(i).getAnggota().getNama()+" "+
-                peminjamanCon.showAllData().get(i).getTglPeminjaman()+" "+
-                peminjamanCon.showAllData().get(i).getTglPengembalian()+" "+status);
-    }
-}
+           String status = !peminjamanController.showAllData07298().get(i).isStatusPeminjaman() ?"Masih dipinjam ":"Telah Kembali ";
+           System.out.println((i+1)+". "+peminjamanController.showAllData07298().get(i).getIdPeminjaman()+" "+
+                peminjamanController.showAllData07298().get(i).getBuku().getIsbn()+" "+
+                peminjamanController.showAllData07298().get(i).getBuku().getJudul()+" "+
+                peminjamanController.showAllData07298().get(i).getAnggota().getNama()+" "+
+                peminjamanController.showAllData07298().get(i).getTglPeminjaman()+" "+
+                peminjamanController.showAllData07298().get(i).getTglpengembalian()+" "+status);
+        }
+    } 
     
     public static void verifikasiPengembalian(){
-        lihatDaftarPeminjam();
+        lihatDaftarPeminjaman();
         System.out.println("Id Peminjam : ");
         String idPeminjaman = input.next();
-        peminjamanCon.verifPengembalian(idPeminjaman);
-    }
+        peminjamanController.verifPengembalian07298(idPeminjaman);
+    } 
     
     public static void menuAnggota(int id){
         int pilih;
@@ -282,29 +281,29 @@ public static void lihatDaftarPeminjam(){
                     break;
             }
         }while(pilih < 4);
-    }
+    } 
     
     public static void lihatRiwayatPeminjaman(int id){
-        int size = peminjamanCon.showDataByPinjam(id).size();
+        int size = peminjamanController.showDataByPeminjam07298(id).size();
         for (int i =0; i < size ; i++){
-           String status = !peminjamanCon.showDataByPinjam(id).get(i).isStatusPeminjaman() ?"Masih dipinjam ":"Telah Kembali ";
-           System.out.println((i+1)+". "+peminjamanCon.showDataByPinjam(id).get(i).getIdPeminjaman()+" "+
-                peminjamanCon.showDataByPinjam(id).get(i).getBuku().getJudul()+" "+
-                peminjamanCon.showDataByPinjam(id).get(i).getTglPeminjaman()+" "+
-                peminjamanCon.showDataByPinjam(id).get(i).getTglPengembalian()+" "+
+           String status = !peminjamanController.showDataByPeminjam07298(id).get(i).isStatusPeminjaman() ? "Masih dipinjam ":"Telah Kembali ";
+           System.out.println((i+1)+". "+peminjamanController.showDataByPeminjam07298(id).get(i).getIdPeminjaman()+" "+
+                peminjamanController.showDataByPeminjam07298(id).get(i).getBuku().getJudul()+" "+
+                peminjamanController.showDataByPeminjam07298(id).get(i).getTglPeminjaman()+" "+
+                peminjamanController.showDataByPeminjam07298(id).get(i).getTglpengembalian()+" "+
                 status
            );
         }
-    }
+    } 
     
     public static void pinjamBuku(int id){
         daftarBuku();
         System.out.print("Isbn Buku : ");
         String isbn = input.next();
-        BukuEntity07298 buku = bukuCon.getData(isbn);
-        AnggotaEntity07298 anggota = anggotaCon.getData(id);
-        peminjamanCon.insertPinjaman(buku, anggota);        
-    }
+        BukuEntity07298 buku = bukuController.getData07298(isbn);
+        AnggotaEntity07298 anggota = anggotaController.getByDataId07298(id);
+        peminjamanController.insertPeminjaman07298(buku, anggota); 
+    } 
     
     public static void editDataAnggota(int id){
         int pilih;
@@ -316,30 +315,30 @@ public static void lihatDaftarPeminjam(){
             System.out.print("Pilih : ");
             pilih = input.nextInt();
             if(pilih == 1){
-                dataAnggotaById(id);
+                dataPenggunaById(id);
                 System.out.print("Password Baru : ");
                 String password = input.next();
-                anggotaCon.updateAku(1, password, id);
+                anggotaController.updateAkun07298(1, password, id);
             }else if(pilih == 2){
-                dataAnggotaById(id);
+                dataPenggunaById(id);
                 System.out.print("Ubah Alamat : ");
                 String alamat = input.next();
-                anggotaCon.updateAku(2, alamat, id);
+                anggotaController.updateAkun07298(2, alamat, id);
             }else if(pilih == 3){
-                dataAnggotaById(id);
+                dataPenggunaById(id);
                 System.out.print("Ubah No Telp : ");
                 String noTelp = input.next();
-                anggotaCon.updateAku(3, noTelp, id);
+                anggotaController.updateAkun07298(3, noTelp, id);
             }
         }while(pilih < 4);
-    }
-    
-    public static void dataAnggotaById(int id){
+
+    } 
+    public static void dataPenggunaById(int id){
         System.out.println(
-                anggotaCon.getData(id).getNama()+ " " +
-                anggotaCon.getData(id).getPassword()+ " " +
-                anggotaCon.getData(id).getNoTelp()+ " " +
-                anggotaCon.getData(id).getAlamat()
+                anggotaController.getByDataId07298(id).getNama()+ " " +
+                anggotaController.getByDataId07298(id).getPassword()+ " " +
+                anggotaController.getByDataId07298(id).getNoTelp()+ " " +
+                anggotaController.getByDataId07298(id).getAlamat()
         );
     }
 }
